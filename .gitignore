@@ -1,0 +1,8 @@
+// secrets, please do not save to github
+.env
+
+// annoying and unnecessary
+node_modules/
+
+npm-debug.log
+.DS_Store
