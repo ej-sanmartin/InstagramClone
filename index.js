@@ -13,6 +13,7 @@ require('./models/post');
 
 app.use(express.json());
 app.use(require('./routes/auth'));
+app.use(require('./routes/post'));
 
 mongoose.connect(MONGO_URI, {
   useNewUrlParser: true,
