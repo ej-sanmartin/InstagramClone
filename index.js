@@ -9,6 +9,7 @@ const MONGO_URI = `mongodb+srv://${process.env.DB_USERNAME}:${process.env.DB_PAS
 
 // Bring in mongoose models
 require('./models/user');
+require('./models/post');
 
 app.use(express.json());
 app.use(require('./routes/auth'));
