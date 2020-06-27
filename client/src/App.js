@@ -10,6 +10,7 @@ import Home from './Routes/Home';
 import Login from './Routes/Login';
 import SignUp from './Routes/SignUp';
 import Profile from './Routes/Profile';
+import CreatePost from './Routes/CreatePost';
 
 function App() {
   return (
@@ -26,6 +27,9 @@ function App() {
       </Route>
       <Route path="/profile">
         <Profile />
+      </Route>
+      <Route path="/create">
+        <CreatePost />
       </Route>
     </BrowserRouter>
   );

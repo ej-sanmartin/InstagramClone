@@ -20,6 +20,12 @@ a {
   color: black !important;
 }
 
+.home-card {
+  max-width: 500px;
+  height: max-content;
+  margin: 4em auto;
+}
+
 .my-card {
   margin-top: 2em;
 }
