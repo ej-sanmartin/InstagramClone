@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import M from 'materialize-css';
 
@@ -9,6 +9,41 @@ const CreatePost = () => {
   const [ body, setBody ] = useState("");
   const [ image, setImage ] = useState("");
   const [ url, setUrl ] = useState("");
+
+  useEffect(() => {
+    if(url){
+      fetch('/createpost', {
+        method: "post",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": "Bearer " + localStorage.getItem("jwt")
+        },
+        body: JSON.stringify({
+          title,
+          body,
+          pic: url
+        })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if(data.error){
+          M.toast({
+            html: data.error,
+            classes: "#c62828 red darken-3"
+          });
+        } else {
+          M.toast({
+            html: "Create post successfully",
+            classes: "#43a047 green darken-1"
+          });
+          history.push('/');
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      })
+    }
+  }, [url])
 
   const postDetails = () => {
     const data = new FormData();
@@ -22,36 +57,6 @@ const CreatePost = () => {
     .then(res => res.json())
     .then(data => {
       setUrl(data.secure_url);
-    })
-    .catch(err => {
-      console.log(err);
-    })
-
-    fetch('/createpost', {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        title,
-        body,
-        pic: url
-      })
-    })
-    .then(res => res.json())
-    .then(data => {
-      if(data.error){
-        M.toast({
-          html: data.error,
-          classes: "#c62828 red darken-3"
-        });
-      } else {
-        M.toast({
-          html: "Create post successfully",
-          classes: "#43a047 green darken-1"
-        });
-        history.push('/login');
-      }
     })
     .catch(err => {
       console.log(err);
