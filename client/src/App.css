@@ -51,3 +51,9 @@ a {
 .item {
   width: 30%;
 }
+
+#toast-container {
+  top: 4em;
+  right: 2em;
+  left: auto;
+}
