@@ -31,7 +31,6 @@ const Login = () => {
     })
     .then(res => res.json())
     .then(data => {
-      console.log(data);
       if(data.error){
         M.toast({
           html: data.error,
@@ -64,7 +63,7 @@ const Login = () => {
             onChange={(e) =>setEmail(e.target.value)}
           />
           <input
-            type="text"
+            type="password"
             placeholder="password"
             value={password}
             onChange={(e) =>setPassword(e.target.value)}
