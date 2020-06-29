@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { UserContext } from '../App';
 import { Link, useHistory } from 'react-router-dom';
 import M from 'materialize-css';
 
 const Login = () => {
+  const { state, dispatch } = useContext(UserContext);
+
   const history = useHistory();
 
   const emailChecker = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
@@ -37,6 +40,7 @@ const Login = () => {
       } else {
         localStorage.setItem("jwt", data.token);
         localStorage.setItem("user", JSON.stringify(data.user));
+        dispatch({ type: "USER", payload: data.user })
         M.toast({
           html: "Logged In",
           classes: "#43a047 green darken-1"
