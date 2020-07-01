@@ -2,12 +2,12 @@ import React, { useState, useEffect, useContext } from 'react';
 import { UserContext } from '../App';
 import { Link } from 'react-router-dom';
 
-const Home = () => {
+const SubscribeUserPosts = () => {
   const [ data, setData ] = useState([]);
   const { state, dispatch } = useContext(UserContext);
 
   useEffect(() => {
-    fetch('/allpost', {
+    fetch('/getsubpost', {
       headers: {
         "Authorization": "Bearer " + localStorage.getItem("jwt")
       }
@@ -126,7 +126,7 @@ const Home = () => {
               <h5 style={{ padding: ".5em" }}><Link to={ item.postedBy._id !== state._id ? "/profile/" + item.postedBy._id : "/profile" }>{ item.postedBy.name }</Link> { item.postedBy._id === state._id
                   && <i className="material-icons" style={{ float: "right" }} onClick={() => deletePost(item._id)}>delete</i>}</h5>
               <div className="card-image">
-                <img alt={ item.title } src={item.photo} />
+                <img src={item.photo} />
               </div>
               <div className="card-content">
                 <i className="material-icons" style={{ color: "red" }}>favorite</i>
@@ -159,4 +159,4 @@ const Home = () => {
   );
 }
 
-export default Home;
+export default SubscribeUserPosts;

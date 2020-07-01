@@ -27,15 +27,16 @@ const Profile = () => {
         }}>
         <div>
           <img alt="Profile" style={{ width: "160px", height: "160px", borderRadius: "80px" }}
-            src="https://images.unsplash.com/photo-1515463892140-58a22e37ff72?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=820&q=80"
+            src={state ? state.pic : "...loading"}
           />
         </div>
         <div>
           <h4>{ state ? state.name : "Loading.." }</h4>
+          <h5>{ state ? state.email : "Loading.." }</h5>
           <div style={{ display: "flex", justifyContent: "space-between", width: "110%" }}>
-            <h6>127 Posts</h6>
-            <h6>4587 Followers</h6>
-            <h6>120 Following</h6>
+            <h6>{ mypics.length } Posts</h6>
+            <h6>{ state ? state.followers.length : "0" } Followers</h6>
+            <h6>{ state ? state.following.length : "0" } Following</h6>
           </div>
         </div>
       </div>

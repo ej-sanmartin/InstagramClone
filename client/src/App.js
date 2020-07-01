@@ -15,17 +15,18 @@ import SignUp from './Routes/SignUp';
 import Profile from './Routes/Profile';
 import CreatePost from './Routes/CreatePost';
 import UserProfile from './Routes/UserProfile';
+import SubscribeUserPosts from './Routes/SubscribeUserPosts';
 
 export const UserContext = createContext();
 
 const Routing = () => {
   const history = useHistory();
   const { state, dispatch } = useContext(UserContext);
+
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("use"));
     if(user){
       dispatch({ type: "USER", payload: user });
-      history.push('/');
     } else {
       history.push('/login');
     }
@@ -50,6 +51,9 @@ const Routing = () => {
       </Route>
       <Route path="/profile/:userid">
         <UserProfile />
+      </Route>
+      <Route path="/subscriptions">
+        <SubscribeUserPosts />
       </Route>
     </Switch>
   );

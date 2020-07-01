@@ -62,3 +62,7 @@ a {
   right: 2em;
   left: auto;
 }
+
+.material-icons:hover {
+  cursor: pointer;
+}

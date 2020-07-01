@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import M from 'materialize-css';
 
@@ -10,7 +10,34 @@ const SignUp = () => {
   const [ name, setName ] = useState("");
   const [ password, setPassword ] = useState("");
   const [ email, setEmail ] = useState("");
-  const PostData = () => {
+  const [ image, setImage ] = useState("");
+  const [ url, setUrl ] = useState(undefined);
+
+  useEffect(() => {
+    if(url){
+      uploadFields();
+    }
+  }, [url]);
+
+  const uploadPic = () => {
+    const data = new FormData();
+    data.append("file", image);
+    data.append("upload_preset", "instagramClone");
+    data.append("cloud_name", "dngusdtwg");
+    fetch("	https://api.cloudinary.com/v1_1/dngusdtwg/image/upload", {
+      method: "post",
+      body: data
+    })
+    .then(res => res.json())
+    .then(data => {
+      setUrl(data.secure_url);
+    })
+    .catch(err => {
+      console.log(err);
+    })
+  }
+
+  const uploadFields = () => {
     if(!emailChecker.test(email)){
       return M.toast({
         html: "Invalid Email",
@@ -25,7 +52,8 @@ const SignUp = () => {
       body: JSON.stringify({
         name,
         password,
-        email
+        email,
+        pic: url
       })
     })
     .then(res => res.json())
@@ -46,6 +74,14 @@ const SignUp = () => {
     .catch(err => {
       console.log(err);
     })
+  }
+
+  const PostData = () => {
+    if(image){
+      uploadPic();
+    } else {
+      uploadFields();
+    }
   }
 
   return(
@@ -70,6 +106,15 @@ const SignUp = () => {
           value={password}
           onChange={(e) =>setPassword(e.target.value)}
         />
+        <div className="file-field input-field">
+          <div className="btn #64b5f6 blue darken-1">
+            <span>Upload Pic</span>
+            <input type="file" onChange={(e) => setImage(e.target.files[0])} />
+          </div>
+          <div className="file-path-wrapper">
+            <input className="file-path validate" type="text" />
+          </div>
+        </div>
       <button className="btn waves-effect waves-light #64b5f6 blue darken-1"
               onClick={() => PostData()}
         >Sign Up</button>
