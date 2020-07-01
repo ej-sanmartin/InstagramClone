@@ -14,6 +14,7 @@ import Login from './Routes/Login';
 import SignUp from './Routes/SignUp';
 import Profile from './Routes/Profile';
 import CreatePost from './Routes/CreatePost';
+import UserProfile from './Routes/UserProfile';
 
 export const UserContext = createContext();
 
@@ -41,11 +42,14 @@ const Routing = () => {
       <Route path="/signup">
         <SignUp />
       </Route>
-      <Route path="/profile">
+      <Route exact path="/profile">
         <Profile />
       </Route>
       <Route path="/create">
         <CreatePost />
+      </Route>
+      <Route path="/profile/:userid">
+        <UserProfile />
       </Route>
     </Switch>
   );
