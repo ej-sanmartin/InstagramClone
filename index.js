@@ -23,4 +23,12 @@ mongoose.connect(MONGO_URI, {
 mongoose.connection.on('connected', () => console.log("Conected to MongoDB"));
 mongoose.connection.on('error', (err) => console.log("Error conecting with MongoDB: ", err));
 
+if(process.env.NODE_ENV === "production"){
+  app.use(express.static('../client/build'));
+  const path = require('path');
+  app.get("*", (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  })
+}
+
 app.listen(PORT, () => console.log(`Server is running on ${PORT}`));
