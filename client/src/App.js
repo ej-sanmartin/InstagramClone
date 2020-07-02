@@ -16,6 +16,8 @@ import Profile from './Routes/Profile';
 import CreatePost from './Routes/CreatePost';
 import UserProfile from './Routes/UserProfile';
 import SubscribeUserPosts from './Routes/SubscribeUserPosts';
+import Reset from './Routes/Reset';
+import NewPassword from  './Routes/NewPassword';
 
 export const UserContext = createContext();
 
@@ -28,7 +30,9 @@ const Routing = () => {
     if(user){
       dispatch({ type: "USER", payload: user });
     } else {
-      history.push('/login');
+      if(!history.location.pathname.startsWith('/reset')){
+        history.push('/login');
+      }
     }
   }, [])
 
@@ -54,6 +58,12 @@ const Routing = () => {
       </Route>
       <Route path="/subscriptions">
         <SubscribeUserPosts />
+      </Route>
+      <Route exact path="/reset">
+        <Reset />
+      </Route>
+      <Route path="/reset/:token">
+        <Reset />
       </Route>
     </Switch>
   );

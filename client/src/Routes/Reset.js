@@ -1,16 +1,12 @@
 import React, { useState, useContext } from 'react';
-import { UserContext } from '../App';
 import { Link, useHistory } from 'react-router-dom';
 import M from 'materialize-css';
 
-const Login = () => {
-  const { state, dispatch } = useContext(UserContext);
-
+const Reset = () => {
   const history = useHistory();
 
   const emailChecker = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 
-  const [ password, setPassword ] = useState("");
   const [ email, setEmail ] = useState("");
   const PostData = () => {
     if(!emailChecker.test(email)){
@@ -19,13 +15,12 @@ const Login = () => {
         classes: "#c62828 red darken-3"
       });
     }
-    fetch('/signin', {
+    fetch('/reset-password', {
       method: "post",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        password,
         email
       })
     })
@@ -37,14 +32,11 @@ const Login = () => {
           classes: "#c62828 red darken-3"
         });
       } else {
-        localStorage.setItem("jwt", data.token);
-        localStorage.setItem("user", JSON.stringify(data.user));
-        dispatch({ type: "USER", payload: data.user })
         M.toast({
-          html: "Logged In",
+          html: data.message,
           classes: "#43a047 green darken-1"
         });
-        history.push('/');
+        history.push('/login');
       }
     })
     .catch(err => {
@@ -62,24 +54,12 @@ const Login = () => {
             value={email}
             onChange={(e) =>setEmail(e.target.value)}
           />
-          <input
-            type="password"
-            placeholder="password"
-            value={password}
-            onChange={(e) =>setPassword(e.target.value)}
-          />
       <button className="btn waves-effect waves-light #64b5f6 blue darken-1"
               onClick={() => PostData()}
-      >Login</button>
-          <p>
-            <Link to="/signup">New around here?</Link>
-          </p>
-          <p>
-            <Link to="/reset">Forgot your password?</Link>
-          </p>
+      >Reset Password</button>
       </div>
     </div>
   );
 }
 
-export default Login;
+export default Reset;
