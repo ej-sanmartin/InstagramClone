@@ -57,6 +57,10 @@ a {
   width: 30%;
 }
 
+.collection-item {
+  width: 100%;
+}
+
 #toast-container {
   top: 4em;
   right: 2em;

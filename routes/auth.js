@@ -117,7 +117,7 @@ router.post('/reset-password', (req, res) => {
           subject: "Password Reset",
           html: `
             <p>You requested for a password reset.</p>
-            <h5>Click on this <a href="http://localhost:3000/reset/${token}">link</a> to reset your password.</h5>
+            <h5>Click on this <a href="${process.env.WEBSITE_URL}/reset/${token}">link</a> to reset your password.</h5>
           `
         })
         .then(() => { console.log("Message sent") })
